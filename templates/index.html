@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+
+        p {
+            margin-top: 20px;
+            color: #333;
+            text-align: center;
+            font-size: 18px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Heart Disease Prediction</h1>
+    <form method="post" action="/predict">
+
+        <label for="Age">Age:</label>
+        <input type="text" name="Age" required><br>
+
+        <label for="Sex">Sex(Enter 1 for Male and 0 for Female):</label>
+        <input type="text" name="Sex" required><br>
+
+        <label for="cp">Chest Pain Type:<br>
+             Value 1: typical angina<br>
+             Value 2: atypical angina<br>
+             Value 3: non-anginal pain<br>
+             Value 4: asymptomatic</label>
+        <input type="text" name="cp" required><br>
+
+        <label for="trestbps">Resting blood pressure(trestbps: in mm Hg)</label>
+        <input type="text" name="trestbps" required><br>
+
+        <label for="chol">Cholestrol level (in mg/dl)</label>
+        <input type="text" name="chol" required><br>
+
+        <label for="fbs">Fasting blood sugar(fbs): (if fbs>120 mg/dl then 1 else 0)</label>
+        <input type="text" name="fbs" required><br>
+
+        <label for="restecg"> Resting electrocardiographic results<br>
+            -- Value 0: normal<br>
+            -- Value 1: having ST-T wave abnormality (T wave inversions and/or ST 
+                        elevation or depression of > 0.05 mV)<br>
+            -- Value 2: showing probable or definite left ventricular hypertrophy
+                        by Estes' criteria</label>
+        <input type="text" name="restecg" required><br>
+
+        <label for="thalch">Maximum heart rate achieved</label>
+        <input type="text" name="thalch" required><br>
+
+        <label for="exang">Exercise induced angina (1 = yes; 0 = no)</label>
+        <input type="text" name="exang" required><br>
+
+        <label for="oldpeak">ST depression induced by exercise relative to rest</label>
+        <input type="text" name="oldpeak" required><br>
+
+
+        <label for="slope">Slope of the peak exercise ST segment<br>
+            -- Value 1: upsloping<br>
+            -- Value 2: flat<br>
+            -- Value 3: downsloping</label>
+        <input type="text" name="slope" required><br>
+
+        <label for="ca">Number of major vessels (0-3) colored by flourosopy</label>
+        <input type="text" name="ca" required><br>
+
+        <label for="thal">Thal: <br>3 = normal; <br>6 = fixed defect; <br>7 = reversable defect</label>
+        <input type="text" name="thal" required><br>
+
+        <input type="submit" value="Predict">
+    </form>
+    {% if prediction_text %}
+    <p>{{ prediction_text }}</p>
+    {% endif %}
+</body>
+
+</html>
