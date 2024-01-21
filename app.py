@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 app = Flask(__name__)
 
 # Load the trained model
-model = joblib.load('F:\SOC 23\heart+disease\heartDisease.pkl')
+model = joblib.load('./heartDisease.pkl')
 
 def convert_to_numeric(df, columns):
     for col_name in columns:
