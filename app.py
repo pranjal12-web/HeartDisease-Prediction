@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, jsonify
 import joblib
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
+from werkzeug.serving import run_simple
+import os
+import cherrypy
 # from sklearn.preprocessing import StandardScaler
 
 app = Flask(__name__)
@@ -67,13 +70,13 @@ def predict():
 
     num_list = ['Age', 'trestbps', 'chol', 'thalch', 'oldpeak', 'Sex', 'cp', 'fbs', 'restecg', 'exang', 'slope', 'ca', 'thal']
     cat_list = ['Age_Group']  
-
+    
     # Replace outliers
     replace_outliers(input_data, num_list)
-
+    
     # One-hot encode categorical features
     input_data = one_hot_encode(input_data, categorical_cols=['Age_Group'])
-
+    
     # Scale numeric features
     input_data,scaler = scale_numeric_features(input_data, num_cols=num_list, scaler=None)
     
@@ -84,4 +87,25 @@ def predict():
     return render_template('index.html', prediction_text=f'Predicted Outcome: {prediction[0]}')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(debug=True)
+
+     # Run the app using Gunicorn
+    # import os
+    # host = '0.0.0.0'
+    # port = int(os.environ.get('PORT', 5000))
+    # workers = int(os.environ.get('WEB_CONCURRENCY', 1))
+    # command = f'gunicorn -w {workers} -b {host}:{port} app:app'
+    # os.system(command)
+
+    # host = '0.0.0.0'
+    # port = int(os.environ.get('PORT', 5000))
+    # serve(app, host=host, port=port)
+
+    host = '127.0.0.1'
+    port = int(os.environ.get('PORT', 5000))
+    cherrypy.config.update({'server.socket_host': host, 'server.socket_port': port})
+    cherrypy.tree.graft(app, '/')
+    cherrypy.engine.start()
+    cherrypy.engine.block()
+
+    
