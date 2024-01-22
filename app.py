@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, jsonify
 import joblib
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
-from werkzeug.serving import run_simple
 import os
 import cherrypy
 # from sklearn.preprocessing import StandardScaler
